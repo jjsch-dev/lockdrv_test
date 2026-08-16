@@ -20,14 +20,14 @@ green; waveforms match the OEM captures (see below).
 
 | Fact | Value | Evidence |
 |---|---|---|
-| Open pulse | INA high, **~235 ms** → OUTA high / OUTB low → actuator extends | `lockdrv_open_pulse_235mS.png` |
-| Close pulse | INB high, ~235 ms → OUTB high / OUTA low → actuator retracts | `lockdrv_open_close_pulses_4.8Seg.png` |
+| Open pulse | INA high, **~235 ms** → OUTA high / OUTB low → actuator extends | ![open_pulse](lockdrv_open_pulse_235mS.png) |
+| Close pulse | INB high, ~235 ms → OUTB high / OUTA low → actuator retracts | ![open_close_pulse](lockdrv_open_close_pulses_4.8Seg.png) |
 | Auto-relock dwell | **~4.6 s** (4.82 s edge-to-edge), CPU-generated → app-level | same capture |
-| Boot home pulse | one INB retract pulse at power-up, same 235–240 ms | `lockdrv_powerup_240mS.png` |
+| Boot home pulse | one INB retract pulse at power-up, same 235–240 ms | ![powerup](lockdrv_powerup_240mS.png) |
 | Release | always **coast** (both inputs low); no brake, no PWM | flyback tail visible |
 | Event matrix | card = keypad = Tuya remote: identical pulses | user-verified |
-| Current | ~50–90 mA per pulse (bounded; MX608E margin ×10) | `lockdrv_pulse_current.jpeg` |
-| Supply | VBAT = USB/battery direct (no series diode) | `lockdrv_VBAT_5V_USB.png` |
+| Current | ~50–90 mA per pulse (bounded; MX608E margin ×10) | ![pulse_current](lockdrv_pulse_current.jpeg) |
+| Supply | VBAT = USB/battery direct (no series diode) | ![vbat](lockdrv_VBAT_5V_USB.png) |
 
 ## Bench hardware
 
@@ -67,11 +67,11 @@ green; waveforms match the OEM captures (see below).
 
 | # | Test | Result | Evidence |
 |---|---|---|---|
-| 1 | `open` on scope = OEM open pulse | **PASS** — 237 ms measured vs 235.5 ms OEM (cursor placement tolerance; configured value 235 ms) | `docs/images/lockdrv_open_237mS.png` |
-| 2 | `close` on scope = OEM close pulse | **PASS** — 235 ms | `docs/images/lockdrv_close_235mS.png` |
-| 3 | `cycle 4600` = OEM auto-relock cycle | **PASS** — 4.7 s measured vs 4.58–4.82 s OEM | `docs/images/lockdrv_cycle_dwell_4600mS.png` |
+| 1 | `open` on scope = OEM open pulse | **PASS** — 237 ms measured vs 235.5 ms OEM (cursor placement tolerance; configured value 235 ms) | ![open](docs/images/lockdrv_open_237mS.png) |
+| 2 | `close` on scope = OEM close pulse | **PASS** — 235 ms | ![close](docs/images/lockdrv_close_235mS.png) |
+| 3 | `cycle 4600` = OEM auto-relock cycle | **PASS** — 4.7 s measured vs 4.58–4.82 s OEM | ![cycle](docs/images/lockdrv_cycle_dwell_4600mS.png) |
 | 4 | Boot home pulse | **PASS** — one retract pulse after reset, identical shape to the OEM power-up capture | (same shape as close; not re-captured) |
-| 5 | `stress 20` | **PASS** — 20/20 cycles, 20/20 mid-pulse retriggers rejected (`ESP_ERR_INVALID_STATE`), 0 failures; open→close spacing 107 ms ≈ 235 pulse + 100 guard + polling | `docs/images/lockdrv_stress_dwell_100mS.png` |
+| 5 | `stress 20` | **PASS** — 20/20 cycles, 20/20 mid-pulse retriggers rejected (`ESP_ERR_INVALID_STATE`), 0 failures; open→close spacing 107 ms ≈ 235 pulse + 100 guard + polling | ![stress](docs/images/lockdrv_stress_dwell_100mS.png) |
 | 6 | `abort` | **PASS (harness v1.3)** — cancels any running `cycle`/`sweep`/`stress` and forces coast. To test mid-pulse from the console: `pulse ext 2000`, then `abort` while it is still high — the scope shows the pulse cut at the abort instant | console log |
 | 7 | Idle draw < 1 µA (coast) | not re-measured — guaranteed by design (both inputs low → MX608E standby < 0.1 µA) | — |
 
