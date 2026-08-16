@@ -26,7 +26,7 @@ green; waveforms match the OEM captures (see below).
 | Boot home pulse | one INB retract pulse at power-up, same 235–240 ms | ![powerup](docs/images/lockdrv_powerup_240mS.png) |
 | Release | always **coast** (both inputs low); no brake, no PWM | flyback tail visible |
 | Event matrix | card = keypad = Tuya remote: identical pulses | user-verified |
-| Current | ~50–90 mA per pulse (bounded; MX608E margin ×10) | ![pulse_current](docs/images/lockdrv_pulse_current.jpeg) |
+| Current | ~50–90 mA per pulse (bounded; MX608E margin ×10) | ![pulse_current](docs/images/lockdrv_pulse_current.jpg) |
 | Supply | VBAT = USB/battery direct (no series diode) | ![vbat](docs/images/lockdrv_VBAT_5V_USB.png) |
 
 ## Bench hardware
