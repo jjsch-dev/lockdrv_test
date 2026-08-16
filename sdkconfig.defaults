@@ -1,0 +1,9 @@
+# lockdrv_test — ES24F stage 5 harness
+# Pinned toolchain: ESP-IDF v6.1-dev-6940-g08e0d30a74a (D11, PROJECT_NOTES)
+# Target: set with `idf.py set-target esp32s3`
+
+# Console REPL over UART0 (devkit USB-Serial), 115200 by default
+CONFIG_ESP_CONSOLE_UART_DEFAULT=y
+
+# The pulse-end ISR must run even with the flash cache off (safety path)
+CONFIG_GPTIMER_ISR_CACHE_SAFE=y

@@ -1,0 +1,35 @@
+menu "lockdrv (HSJ08H lock actuator driver)"
+
+    config LOCKDRV_PULSE_MS
+        int "Actuator pulse width (ms)"
+        default 235
+        help
+            OEM parity: 235-240 ms measured on the scope for open, close AND
+            the boot home pulse (all the same width, single parameter).
+            See HANDOFF_Solenoid_HSJ08H.md, sections 10-13.
+
+    config LOCKDRV_GUARD_MS
+        int "No-retrigger guard window after a pulse (ms)"
+        default 100
+        help
+            Protection added by us (no OEM equivalent needed: the OEM never
+            re-triggers within a cycle). Rejects any new pulse request while
+            active. 0 disables the guard window.
+
+    config LOCKDRV_HOME_ON_INIT
+        bool "Retract pulse at boot (OEM parity)"
+        default y
+        help
+            The OEM pulses INB (retract) at power-up so the open-loop
+            actuator always starts from the known rest position.
+
+    config LOCKDRV_HOME_DELAY_MS
+        int "Delay before the boot retract pulse (ms)"
+        default 500
+        depends on LOCKDRV_HOME_ON_INIT
+        help
+            NOT measured on the OEM (the power-up capture showed the pulse
+            but not the delay from power-on). The pulse itself is OEM-proven;
+            adjust this delay when the OEM boot timing is captured.
+
+endmenu
