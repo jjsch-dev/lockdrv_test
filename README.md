@@ -20,14 +20,14 @@ green; waveforms match the OEM captures (see below).
 
 | Fact | Value | Evidence |
 |---|---|---|
-| Open pulse | INA high, **~235 ms** → OUTA high / OUTB low → actuator extends | ![open_pulse](lockdrv_open_pulse_235mS.png) |
-| Close pulse | INB high, ~235 ms → OUTB high / OUTA low → actuator retracts | ![open_close_pulse](lockdrv_open_close_pulses_4.8Seg.png) |
+| Open pulse | INA high, **~235 ms** → OUTA high / OUTB low → actuator extends | ![open_pulse](docs/images/lockdrv_open_pulse_235mS.png) |
+| Close pulse | INB high, ~235 ms → OUTB high / OUTA low → actuator retracts | ![open_close_pulse](docs/images/lockdrv_open_close_pulses_4.8Seg.png) |
 | Auto-relock dwell | **~4.6 s** (4.82 s edge-to-edge), CPU-generated → app-level | same capture |
-| Boot home pulse | one INB retract pulse at power-up, same 235–240 ms | ![powerup](lockdrv_powerup_240mS.png) |
+| Boot home pulse | one INB retract pulse at power-up, same 235–240 ms | ![powerup](docs/images/lockdrv_powerup_240mS.png) |
 | Release | always **coast** (both inputs low); no brake, no PWM | flyback tail visible |
 | Event matrix | card = keypad = Tuya remote: identical pulses | user-verified |
-| Current | ~50–90 mA per pulse (bounded; MX608E margin ×10) | ![pulse_current](lockdrv_pulse_current.jpeg) |
-| Supply | VBAT = USB/battery direct (no series diode) | ![vbat](lockdrv_VBAT_5V_USB.png) |
+| Current | ~50–90 mA per pulse (bounded; MX608E margin ×10) | ![pulse_current](docs/images/lockdrv_pulse_current.jpeg) |
+| Supply | VBAT = USB/battery direct (no series diode) | ![vbat](docs/images/lockdrv_VBAT_5V_USB.png) |
 
 ## Bench hardware
 
